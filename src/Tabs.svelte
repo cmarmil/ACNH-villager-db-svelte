@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import store from "./stores.js";
   const speciesList = [
     "Alligator",
     "Anteater",
@@ -38,20 +38,18 @@
     "Wolf",
   ];
 
-  const dispatch = createEventDispatcher();
   let activeTab = "Alligator";
 
   function setActiveTab(e, species) {
     if (e.type === "keypress" && e.keyCode != 13) {
       return;
     }
-    activeTab = species;
-
-    //also send this information up to the parent.
-    dispatch("setActiveTab", {
-      activeTab: species,
+    let matchingVillagers = $store.villagers.filter((villager) => {
+      return villager.species === species;
     });
+    $store.renderedVillagers = matchingVillagers;
   }
+
 </script>
 
 <style>
@@ -76,10 +74,10 @@
     background: #f5f5f5;
   }
 
-  @media(max-width: 768px) {
-      .menu {
-          display: none;
-      }
+  @media (max-width: 768px) {
+    .menu {
+      display: none;
+    }
   }
 </style>
 

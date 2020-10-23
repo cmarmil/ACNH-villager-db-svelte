@@ -1,15 +1,16 @@
 <script>
   let searchStr = "";
-  const dispatch = createEventDispatcher();
-  import { createEventDispatcher } from "svelte";
+  import store from "./stores.js";
 
   function search(e) {
     if (e.type === "keypress" && e.keyCode === 13) {
-      dispatch("search", {
-        searchStr: searchStr,
+      let matchingVillager = $store.villagers.filter((villager) => {
+        return villager.name["name-USen"].toLowerCase() === searchStr;
       });
+      $store.renderedVillagers = matchingVillager;
     }
   }
+  
 </script>
 
 <div class="field">

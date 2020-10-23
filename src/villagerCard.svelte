@@ -36,7 +36,6 @@
     display: flex;
     width: auto !important;
   }
-
   .card-footer {
     display: flex;
     align-items: center;

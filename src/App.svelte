@@ -1,41 +1,21 @@
 <script>
-  import VillagerCard from "./villagerCard.svelte";
+  import VillagerCard from "./VillagerCard.svelte";
   import Search from "./Search.svelte";
   import Tabs from "./Tabs.svelte";
+  import DreamieCard from "./DreamieCard.svelte";
   import { onMount } from "svelte";
-
-  let villagers = [];
-  let renderedVillagers = [];
-  let searchTerm = "";
+  import store from "./stores.js";
 
   onMount(async () => {
     const res = await fetch(`https://acnhapi.com/v1a/villagers/`);
-    villagers = await res.json();
+    let villagers = await res.json();
+    $store.villagers = villagers;
     //render the villagers for the default active tab, Alligators.
     let initialRendered = villagers.filter((villager) => {
       return villager.species === "Alligator";
     });
-
-    renderedVillagers = initialRendered;
+    $store.renderedVillagers = initialRendered;
   });
-
-  function handleSearch(event) {
-    searchTerm = event.detail.searchStr;
-    let matchingVillager = villagers.filter((villager) => {
-      return villager.name["name-USen"].toLowerCase() === searchTerm;
-    });
-    if (matchingVillager) {
-      renderedVillagers = matchingVillager;
-    }
-  }
-
-  function handleNewActiveTab(event) {
-    let activeTab = event.detail.activeTab;
-    let matchingVillagers = villagers.filter((villager) => {
-      return villager.species === activeTab;
-    });
-    renderedVillagers = matchingVillagers;
-  }
 </script>
 
 <style>
@@ -51,7 +31,6 @@
       grid-template-columns: 50% 50% 50% 50%;
     }
   }
-
   @media (max-width: 758px) {
     .card-container {
       display: block;
@@ -61,11 +40,12 @@
 
 <div>
   <div id="root">
-    <Search on:search={handleSearch} />
+    <DreamieCard />
+    <Search />
     <div class="columns">
-      <Tabs on:setActiveTab={handleNewActiveTab} />
+      <Tabs />
       <div class="card-container column">
-        {#each renderedVillagers as villager, i}
+        {#each $store.renderedVillagers as villager, i}
           <VillagerCard {villager} {i} />
         {/each}
       </div>
