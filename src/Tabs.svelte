@@ -17,7 +17,7 @@
     "Eagle",
     "Frog",
     "Goat",
-    "Gorillas",
+    "Gorilla",
     "Hamster",
     "Hippo",
     "Horse",
