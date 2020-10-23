@@ -1,6 +1,5 @@
 <script>
   import { favoriteVillagers } from "./stores.js";
-  import LoadingGraphic from "./LoadingGraphic.svelte";
 
   let downloadedImages = {};
 
@@ -39,7 +38,8 @@
     min-height: 15vh;
   }
 
-  .image {
+  .image,
+  .placeholder {
     width: 3em;
   }
 </style>
@@ -48,13 +48,12 @@
   {#each $favoriteVillagers as villager, i (villager.id)}
     <div class="villager-icon">
       {#await fetchIcon(villager['icon_uri'], villager.id)}
-         <figure class="image is-128x128 placeholder">
-          <LoadingGraphic viewbox={"0 0 128 128"}/>
+        <figure class="image is-square placeholder">
+          <img src={'images/spinner.gif'} alt="loading spinner"/>
         </figure>
       {:then img}
         <figure class="image is-square">
-            <LoadingGraphic viewbox={"0 0 60 60"}/>
-          <!-- <img src={img} alt="icon of {villager.name['name-USen']}" /> -->
+          <img src={img} alt="icon of {villager.name['name-USen']}" />
         </figure>
       {/await}
     </div>

@@ -28,7 +28,7 @@
   }
 
   .top-container {
-    height: 25vh;
+    margin: 1em;
   }
   @media (max-width: 1024px) {
     .card-container {

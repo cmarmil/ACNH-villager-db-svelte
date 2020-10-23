@@ -1,5 +1,4 @@
 <script>
-  import LoadingGraphic from "./LoadingGraphic.svelte";
   import FavoriteBtn from "./FavoriteBtn.svelte";
   export let villager, i;
 
@@ -45,7 +44,7 @@
 <div class="box villager-card">
   {#await fetchImage(villager['image_uri'], i)}
     <figure class="image is-128x128 placeholder">
-      <LoadingGraphic viewbox={"0 0 128 128"}/>
+      <img src={'images/spinner.gif'} alt="loading spinner"/>
     </figure>
   {:then img}
     <figure class="image is-square">
