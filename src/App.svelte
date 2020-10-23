@@ -30,6 +30,18 @@
   .top-container {
     margin: 1em;
   }
+  
+
+  #root {
+    height: 100vh;
+    display: flex;
+  }
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
   @media (max-width: 1024px) {
     .card-container {
       grid-template-columns: 50% 50% 50% 50%;
@@ -44,19 +56,16 @@
 
 <div>
   <div id="root">
-
-    <div class="columns">
-      <Tabs />
-      <div class="main-container column">
-        <div class="top-container">
+    <Tabs />
+    <div class="main-container">
+      <div class="top-container">
         <DreamieCard />
         <Search />
-        </div>
-        <div class="card-container">
-          {#each $renderedVillagers as villager, i (villager.id)}
-            <VillagerCard {villager} {i} />
-          {/each}
-        </div>
+      </div>
+      <div class="card-container">
+        {#each $renderedVillagers as villager, i (villager.id)}
+          <VillagerCard {villager} />
+        {/each}
       </div>
     </div>
   </div>

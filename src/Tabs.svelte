@@ -48,6 +48,7 @@
       return villager.species === species;
     });
     $renderedVillagers = matchingVillagers;
+    activeTab = species;
   }
 </script>
 

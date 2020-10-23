@@ -15,7 +15,6 @@
 <style>
   .field {
     width: 90%;
-    padding: 1em;
     margin: 0 auto;
   }
 </style>

@@ -1,6 +1,6 @@
 <script>
   import FavoriteBtn from "./FavoriteBtn.svelte";
-  export let villager, i;
+  export let villager;
 
   const fetchImage = async function (url, i) {
     const src = await fetch(url)
@@ -42,7 +42,7 @@
 </style>
 
 <div class="box villager-card">
-  {#await fetchImage(villager['image_uri'], i)}
+  {#await fetchImage(villager['image_uri'])}
     <figure class="image is-128x128 placeholder">
       <img src={'images/spinner.gif'} alt="loading spinner"/>
     </figure>

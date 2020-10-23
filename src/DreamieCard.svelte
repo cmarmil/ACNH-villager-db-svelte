@@ -29,13 +29,15 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 1em;
+    margin: 0 1em;;
   }
 
   .dreamie-card {
     display: flex;
     flex-wrap: wrap;
     min-height: 15vh;
+    width: 95%;
+    margin: 1em auto;
   }
 
   .image,

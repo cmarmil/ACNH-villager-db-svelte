@@ -7,7 +7,7 @@
   function handleClick() {
     activated = !activated;
 
-    if (activated) {
+    if (activated && $favoriteVillagers.length < 10) {
       $favoriteVillagers = [...$favoriteVillagers, villager];
     } else {
       $favoriteVillagers = $favoriteVillagers.filter(function (
