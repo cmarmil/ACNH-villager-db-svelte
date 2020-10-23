@@ -1,5 +1,6 @@
 <script>
   import LoadingGraphic from "./LoadingGraphic.svelte";
+  import FavoriteBtn from "./FavoriteBtn.svelte";
   export let villager, i;
 
   const fetchImage = async function (url, i) {
@@ -16,11 +17,11 @@
 </script>
 
 <style>
+  /* bulma over-ride */
   .box:last-child {
     margin-bottom: 1.5em;
   }
   .villager-card {
-    cursor: pointer;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -35,9 +36,14 @@
     display: flex;
     width: auto !important;
   }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+  }
 </style>
 
-<div tabindex="0" class="box villager-card">
+<div class="box villager-card">
   {#await fetchImage(villager['image_uri'], i)}
     <figure class="image is-128x128 placeholder">
       <LoadingGraphic />
@@ -47,5 +53,8 @@
       <img src={img} alt="image of {villager.name['name-USen']}" />
     </figure>
   {/await}
-  <p>{villager.name['name-USen']}</p>
+  <div class="card-footer">
+    <FavoriteBtn />
+    <p>{villager.name['name-USen']}</p>
+  </div>
 </div>
