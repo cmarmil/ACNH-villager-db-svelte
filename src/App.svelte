@@ -4,17 +4,17 @@
   import Tabs from "./Tabs.svelte";
   import DreamieCard from "./DreamieCard.svelte";
   import { onMount } from "svelte";
-  import store from "./stores.js";
+  import { villagers, renderedVillagers } from "./stores.js";
 
   onMount(async () => {
     const res = await fetch(`https://acnhapi.com/v1a/villagers/`);
-    let villagers = await res.json();
-    $store.villagers = villagers;
+    let villagerData = await res.json();
+    $villagers = villagerData;
     //render the villagers for the default active tab, Alligators.
-    let initialRendered = villagers.filter((villager) => {
+    let initialRendered = $villagers.filter((villager) => {
       return villager.species === "Alligator";
     });
-    $store.renderedVillagers = initialRendered;
+    $renderedVillagers = initialRendered;
   });
 </script>
 
@@ -23,8 +23,12 @@
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-auto-rows: max-content;
-    height: 100vh;
+    height: 75vh;
     overflow: auto;
+  }
+
+  .top-container {
+    height: 25vh;
   }
   @media (max-width: 1024px) {
     .card-container {
@@ -40,14 +44,19 @@
 
 <div>
   <div id="root">
-    <DreamieCard />
-    <Search />
+
     <div class="columns">
       <Tabs />
-      <div class="card-container column">
-        {#each $store.renderedVillagers as villager, i}
-          <VillagerCard {villager} {i} />
-        {/each}
+      <div class="main-container column">
+        <div class="top-container">
+        <DreamieCard />
+        <Search />
+        </div>
+        <div class="card-container">
+          {#each $renderedVillagers as villager, i (villager.id)}
+            <VillagerCard {villager} {i} />
+          {/each}
+        </div>
       </div>
     </div>
   </div>

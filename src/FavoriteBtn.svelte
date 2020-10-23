@@ -1,8 +1,33 @@
 <script>
-  let activated = false;
-  function setState() {
+  import { favoriteVillagers } from "./stores.js";
+  import { onMount } from "svelte";
+
+  let activated;
+  export let villager;
+  function handleClick() {
     activated = !activated;
+
+    if (activated) {
+      $favoriteVillagers = [...$favoriteVillagers, villager];
+    } else {
+      $favoriteVillagers = $favoriteVillagers.filter(function (
+        favoriteVillager
+      ) {
+        return favoriteVillager.id != villager.id;
+      });
+    }
   }
+
+  onMount(async () => {
+    //check to see if the villager has been favorited already
+    let favorited = $favoriteVillagers.filter(function (favoriteVillager) {
+      return favoriteVillager.id === villager.id;
+    });
+    if (favorited.length) {
+      activated = true;
+    }
+  });
+
 </script>
 
 <style>
@@ -18,7 +43,7 @@
   }
 </style>
 
-<button on:click={setState} class="button">
+<button on:click={handleClick} class="button">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

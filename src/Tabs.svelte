@@ -1,5 +1,5 @@
 <script>
-  import store from "./stores.js";
+  import { renderedVillagers, villagers } from "./stores.js";
   const speciesList = [
     "Alligator",
     "Anteater",
@@ -44,12 +44,11 @@
     if (e.type === "keypress" && e.keyCode != 13) {
       return;
     }
-    let matchingVillagers = $store.villagers.filter((villager) => {
+    let matchingVillagers = $villagers.filter((villager) => {
       return villager.species === species;
     });
-    $store.renderedVillagers = matchingVillagers;
+    $renderedVillagers = matchingVillagers;
   }
-
 </script>
 
 <style>

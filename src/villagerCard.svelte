@@ -45,7 +45,7 @@
 <div class="box villager-card">
   {#await fetchImage(villager['image_uri'], i)}
     <figure class="image is-128x128 placeholder">
-      <LoadingGraphic />
+      <LoadingGraphic viewbox={"0 0 128 128"}/>
     </figure>
   {:then img}
     <figure class="image is-square">
@@ -53,7 +53,7 @@
     </figure>
   {/await}
   <div class="card-footer">
-    <FavoriteBtn />
+    <FavoriteBtn {villager} />
     <p>{villager.name['name-USen']}</p>
   </div>
 </div>

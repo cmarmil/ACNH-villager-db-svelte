@@ -1,17 +1,24 @@
 <script>
   let searchStr = "";
-  import store from "./stores.js";
+  import { renderedVillagers, villagers } from "./stores.js";
 
   function search(e) {
     if (e.type === "keypress" && e.keyCode === 13) {
-      let matchingVillager = $store.villagers.filter((villager) => {
+      let matchingVillager = $villagers.filter((villager) => {
         return villager.name["name-USen"].toLowerCase() === searchStr;
       });
-      $store.renderedVillagers = matchingVillager;
+      $renderedVillagers = matchingVillager;
     }
   }
-  
 </script>
+
+<style>
+  .field {
+    width: 90%;
+    padding: 1em;
+    margin: 0 auto;
+  }
+</style>
 
 <div class="field">
   <div class="control">
