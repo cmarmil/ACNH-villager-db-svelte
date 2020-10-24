@@ -1,20 +1,16 @@
 <script>
-  import { favoriteVillagers } from "./stores.js";
+  import { favoriteVillagers, setFavorites } from "./stores.js";
   import { onMount } from "svelte";
 
   let activated;
   export let villager;
   function handleClick() {
     activated = !activated;
-
     if (activated && $favoriteVillagers.length < 10) {
-      $favoriteVillagers = [...$favoriteVillagers, villager];
-    } else {
-      $favoriteVillagers = $favoriteVillagers.filter(function (
-        favoriteVillager
-      ) {
-        return favoriteVillager.id != villager.id;
-      });
+      setFavorites(true, villager);
+    }
+    if (!activated) {
+      setFavorites(false, villager);
     }
   }
 
@@ -27,7 +23,6 @@
       activated = true;
     }
   });
-
 </script>
 
 <style>

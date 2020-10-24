@@ -1,15 +1,5 @@
 <script>
-  let searchStr = "";
-  import { renderedVillagers, villagers } from "./stores.js";
-
-  function search(e) {
-    if (e.type === "keypress" && e.keyCode === 13) {
-      let matchingVillager = $villagers.filter((villager) => {
-        return villager.name["name-USen"].toLowerCase() === searchStr;
-      });
-      $renderedVillagers = matchingVillager;
-    }
-  }
+  import { searchTerm } from "./stores.js";
 </script>
 
 <style>
@@ -25,7 +15,6 @@
       class="input is-primary"
       type="text"
       placeholder="Search"
-      on:keypress={search}
-      bind:value={searchStr} />
+      bind:value={$searchTerm} />
   </div>
 </div>

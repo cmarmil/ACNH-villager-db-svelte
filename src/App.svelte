@@ -4,17 +4,10 @@
   import Tabs from "./Tabs.svelte";
   import DreamieCard from "./DreamieCard.svelte";
   import { onMount } from "svelte";
-  import { villagers, renderedVillagers } from "./stores.js";
+  import { renderedVillagers, getVillagers } from "./stores.js";
 
   onMount(async () => {
-    const res = await fetch(`https://acnhapi.com/v1a/villagers/`);
-    let villagerData = await res.json();
-    $villagers = villagerData;
-    //render the villagers for the default active tab, Alligators.
-    let initialRendered = $villagers.filter((villager) => {
-      return villager.species === "Alligator";
-    });
-    $renderedVillagers = initialRendered;
+    await getVillagers();
   });
 </script>
 
@@ -63,7 +56,7 @@
         <Search />
       </div>
       <div class="card-container">
-        {#each $renderedVillagers as villager, i (villager.id)}
+        {#each $renderedVillagers as villager (villager.id)}
           <VillagerCard {villager} />
         {/each}
       </div>

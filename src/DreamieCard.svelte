@@ -38,6 +38,7 @@
     min-height: 15vh;
     width: 95%;
     margin: 1em auto;
+    justify-content: center;
   }
 
   .image,

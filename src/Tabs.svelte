@@ -1,5 +1,5 @@
 <script>
-  import { renderedVillagers, villagers } from "./stores.js";
+  import { searchTerm, species } from "./stores.js";
   const speciesList = [
     "Alligator",
     "Anteater",
@@ -40,15 +40,9 @@
 
   let activeTab = "Alligator";
 
-  function setActiveTab(e, species) {
-    if (e.type === "keypress" && e.keyCode != 13) {
-      return;
-    }
-    let matchingVillagers = $villagers.filter((villager) => {
-      return villager.species === species;
-    });
-    $renderedVillagers = matchingVillagers;
-    activeTab = species;
+  function setActiveTab(speciesStr) {
+    $searchTerm = "";
+    $species = speciesStr;
   }
 </script>
 
@@ -84,14 +78,14 @@
 <aside class="menu">
   <p class="menu-label">Species</p>
   <ul class="menu-list">
-    {#each speciesList as species, i}
+    {#each speciesList as speciesStr, i}
       <li
         tabIndex="0"
         role="button"
-        class={activeTab === species ? 'active-menu-item' : ''}
-        on:click={(e) => setActiveTab(e, species)}
-        on:keypress={(e) => setActiveTab(e, species)}>
-        {species}
+        class={$species === speciesStr ? 'active-menu-item' : ''}
+        on:click={() => setActiveTab(speciesStr)}
+        on:keypress={() => setActiveTab(speciesStr)}>
+        {speciesStr}
       </li>
     {/each}
   </ul>
