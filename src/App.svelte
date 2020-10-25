@@ -33,6 +33,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    background: #f5f5f5;
   }
 
   @media (max-width: 1024px) {

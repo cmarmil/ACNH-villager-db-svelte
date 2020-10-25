@@ -1,5 +1,5 @@
 <script>
-  import { favoriteVillagers } from "./stores.js";
+  import { favoriteVillagers, setFavorites } from "./stores.js";
 
   let downloadedImages = {};
 
@@ -22,6 +22,10 @@
     }
     return src;
   };
+
+  function deleteVillager(villager) {
+    setFavorites(false, villager);
+  }
 </script>
 
 <style>
@@ -29,21 +33,20 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 0 1em;;
+    margin: 0 1em;
   }
 
   .dreamie-card {
     display: flex;
     flex-wrap: wrap;
-    min-height: 15vh;
-    width: 95%;
+    min-height: 17vh;
     margin: 1em auto;
     justify-content: center;
   }
 
   .image,
   .placeholder {
-    width: 3em;
+    width: 3.5em;
   }
 </style>
 
@@ -52,9 +55,10 @@
     <div class="villager-icon">
       {#await fetchIcon(villager['icon_uri'], villager.id)}
         <figure class="image is-square placeholder">
-          <img src={'images/spinner.gif'} alt="loading spinner"/>
+          <img src={'images/spinner.gif'} alt="loading spinner" />
         </figure>
       {:then img}
+        <a role="button" tabindex=0 class="delete is-small" on:click={() => deleteVillager(villager)} />
         <figure class="image is-square">
           <img src={img} alt="icon of {villager.name['name-USen']}" />
         </figure>

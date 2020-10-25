@@ -1,6 +1,6 @@
 <script>
   import { favoriteVillagers, setFavorites } from "./stores.js";
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
 
   let activated;
   export let villager;
@@ -14,14 +14,19 @@
     }
   }
 
-  onMount(async () => {
-    //check to see if the villager has been favorited already
+  function checkFavorited() {
+    //check to see if the villager has been favorited.
     let favorited = $favoriteVillagers.filter(function (favoriteVillager) {
       return favoriteVillager.id === villager.id;
     });
-    if (favorited.length) {
-      activated = true;
-    }
+    activated = favorited.length ? true : false;
+  }
+
+  onMount(async () => {
+    checkFavorited();
+  });
+  afterUpdate(() => {
+    checkFavorited();
   });
 </script>
 

@@ -2,13 +2,6 @@
   import { searchTerm } from "./stores.js";
 </script>
 
-<style>
-  .field {
-    width: 90%;
-    margin: 0 auto;
-  }
-</style>
-
 <div class="field">
   <div class="control">
     <input
