@@ -37,6 +37,7 @@ export const setFavorites = (addVillager, villager) => {
       })
       favoriteVillagers.set(filtered)
     }
+    localStorage.setItem('favoriteVillagers', JSON.stringify(get(favoriteVillagers)));
   }
 
 function filterVillagers(villagers, species, searchTerm) {
