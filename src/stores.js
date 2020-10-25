@@ -1,8 +1,11 @@
-import { get, writable, derived } from 'svelte/store'
+import { get, writable, derived, readable } from 'svelte/store'
 
 const { subscribe, set } = writable([])
 
 export const villagers = { subscribe }
+export const searchTerm = writable('')
+export const species = writable('Alligator')
+export const favoriteVillagers = writable([])
 
 export const getVillagers = async () => {
   const response = await fetch('https://acnhapi.com/v1a/villagers/')
@@ -13,16 +16,27 @@ export const getVillagers = async () => {
   }
 }
 
-export const searchTerm = writable('')
-export const species = writable('Alligator')
-export const favoriteVillagers = writable([])
-
 export const renderedVillagers = derived(
   [villagers, species, searchTerm],
   ([$villagers, $species, $searchTerm]) => {
     return filterVillagers($villagers, $species, $searchTerm) || []
   },
 )
+
+export const setFavorites = (addVillager, villager) => {
+    if (addVillager) {
+      favoriteVillagers.update((favoriteVillagers) => [
+        ...favoriteVillagers,
+        villager,
+      ])
+    } else {
+      let currentfavorites = get(favoriteVillagers)
+      let filtered = currentfavorites.filter((favorite) => {
+        return favorite.id != villager.id
+      })
+      favoriteVillagers.set(filtered)
+    }
+  }
 
 function filterVillagers(villagers, species, searchTerm) {
   if (searchTerm) {
@@ -39,18 +53,40 @@ function filterVillagers(villagers, species, searchTerm) {
   }
 }
 
-export const setFavorites = (addVillager, villager) => {
-  if (addVillager) {
-    favoriteVillagers.update((favoriteVillagers) => [
-      ...favoriteVillagers,
-      villager,
-    ])
-  } else {
-    let currentfavorites = get(favoriteVillagers)
-    var id = villager.id
-    let filtered = currentfavorites.filter((favorite) => {
-      return favorite.id != villager.id
-    })
-    favoriteVillagers.set(filtered)
-  }
-}
+export const speciesList = readable([
+    "Alligator",
+    "Anteater",
+    "Bear",
+    "Bird",
+    "Bull",
+    "Cat",
+    "Cub",
+    "Chicken",
+    "Cow",
+    "Deer",
+    "Dog",
+    "Duck",
+    "Elephant",
+    "Eagle",
+    "Frog",
+    "Goat",
+    "Gorilla",
+    "Hamster",
+    "Hippo",
+    "Horse",
+    "Koala",
+    "Kangaroo",
+    "Lion",
+    "Monkey",
+    "Mouse",
+    "Octopus",
+    "Ostrich",
+    "Penguin",
+    "Pig",
+    "Rabbit",
+    "Rhino",
+    "Sheep",
+    "Squirrel",
+    "Tiger",
+    "Wolf",
+  ])

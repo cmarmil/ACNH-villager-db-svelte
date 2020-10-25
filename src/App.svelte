@@ -1,8 +1,9 @@
 <script>
   import VillagerCard from "./VillagerCard.svelte";
   import Search from "./Search.svelte";
-  import Tabs from "./Tabs.svelte";
+  import SideMenu from "./SideMenu.svelte";
   import DreamieCard from "./DreamieCard.svelte";
+  import Dropdown from "./Dropdown.svelte";
   import { onMount } from "svelte";
   import { renderedVillagers, getVillagers } from "./stores.js";
 
@@ -23,7 +24,6 @@
   .top-container {
     margin: 1em;
   }
-  
 
   #root {
     height: 100vh;
@@ -49,11 +49,12 @@
 
 <div>
   <div id="root">
-    <Tabs />
+    <SideMenu />
     <div class="main-container">
       <div class="top-container">
         <DreamieCard />
         <Search />
+        <Dropdown />
       </div>
       <div class="card-container">
         {#each $renderedVillagers as villager (villager.id)}
