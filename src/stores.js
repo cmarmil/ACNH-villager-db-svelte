@@ -6,6 +6,7 @@ export const villagers = { subscribe }
 export const searchTerm = writable('')
 export const species = writable('Alligator')
 export const favoriteVillagers = writable([])
+export const fetchedVillagerImages = writable({})
 
 export const getVillagers = async () => {
   const response = await fetch('https://acnhapi.com/v1a/villagers/')

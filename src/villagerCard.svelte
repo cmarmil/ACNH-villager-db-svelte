@@ -1,16 +1,25 @@
 <script>
   import FavoriteBtn from "./FavoriteBtn.svelte";
+  import { fetchedVillagerImages } from "./stores";
   export let villager;
 
-  const fetchImage = async function (url, i) {
-    const src = await fetch(url)
-      .then((res) => {
-        return res.blob();
-      })
-      .then((blob) => {
-        var img = URL.createObjectURL(blob);
-        return img;
-      });
+  const fetchImage = async function (url, id) {
+    let src;
+    //if we've already grabbed the blob, don't fetch it again.
+    if ($fetchedVillagerImages.hasOwnProperty(id)) {
+      src = $fetchedVillagerImages[id];
+    } else {
+      src = await fetch(url)
+        .then((res) => {
+          return res.blob();
+        })
+        .then((blob) => {
+          var img = URL.createObjectURL(blob);
+          return img;
+        });
+
+      $fetchedVillagerImages[id] = src;
+    }
     return src;
   };
 </script>
@@ -42,9 +51,9 @@
 </style>
 
 <div class="box villager-card">
-  {#await fetchImage(villager['image_uri'])}
+  {#await fetchImage(villager['image_uri'], villager.id)}
     <figure class="image is-128x128 placeholder">
-      <img src={'images/spinner.gif'} alt="loading spinner"/>
+      <img src={'images/spinner.gif'} alt="loading spinner" />
     </figure>
   {:then img}
     <figure class="image is-square">

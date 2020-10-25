@@ -58,7 +58,11 @@
           <img src={'images/spinner.gif'} alt="loading spinner" />
         </figure>
       {:then img}
-        <a role="button" tabindex=0 class="delete is-small" on:click={() => deleteVillager(villager)} />
+        <a
+          role="button"
+          tabindex="0"
+          class="delete is-small"
+          on:click={() => deleteVillager(villager)} />
         <figure class="image is-square">
           <img src={img} alt="icon of {villager.name['name-USen']}" />
         </figure>
