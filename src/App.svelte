@@ -22,7 +22,7 @@
   }
 
   .top-container {
-    margin: 1em;
+    margin: .5em 1em 0 1em;
   }
 
   #root {

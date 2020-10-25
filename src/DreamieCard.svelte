@@ -29,6 +29,10 @@
 </script>
 
 <style>
+  /* Bulma over-ride */
+  .box {
+    margin-bottom: 0.5em !important;
+  }
   .villager-icon {
     display: flex;
     justify-content: center;
@@ -42,11 +46,13 @@
     min-height: 17vh;
     margin: 1em auto;
     justify-content: center;
+    padding: 0.5em;
+    margin: 0.5em 0;
   }
 
   .image,
   .placeholder {
-    width: 3.5em;
+    width: 4em;
   }
 </style>
 
