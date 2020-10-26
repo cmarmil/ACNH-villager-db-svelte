@@ -43,7 +43,7 @@ export const setFavorites = (addVillager, villager) => {
 function filterVillagers(villagers, species, searchTerm) {
   if (searchTerm) {
     let matchingVillager = villagers.filter((villager) => {
-      return villager.name['name-USen'].toLowerCase() === searchTerm
+      return villager.name['name-USen'].toLowerCase() === searchTerm.toLowerCase();
     })
     return matchingVillager
   }
