@@ -4,19 +4,25 @@
   import SideMenu from "./SideMenu.svelte";
   import DreamieCard from "./DreamieCard.svelte";
   import Dropdown from "./Dropdown.svelte";
+  import GithubBtn from "./GithubBtn.svelte";
   import { onMount } from "svelte";
-  import { renderedVillagers, getVillagers, favoriteVillagers } from "./stores.js";
+  import {
+    renderedVillagers,
+    getVillagers,
+    favoriteVillagers,
+  } from "./stores.js";
 
   onMount(async () => {
     await getVillagers();
-    
+
     if (!localStorage.length) {
-      localStorage.setItem('favoriteVillagers', '[]');
+      localStorage.setItem("favoriteVillagers", "[]");
     } else {
-      $favoriteVillagers = JSON.parse(localStorage.getItem('favoriteVillagers'));
+      $favoriteVillagers = JSON.parse(
+        localStorage.getItem("favoriteVillagers")
+      );
     }
   });
-
 </script>
 
 <style>
@@ -29,7 +35,7 @@
   }
 
   .top-container {
-    margin: .5em 1em 0 1em;
+    margin: 0.5em 1em 0 1em;
   }
 
   #root {
@@ -71,4 +77,5 @@
       </div>
     </div>
   </div>
+  <GithubBtn/>
 </div>
